@@ -19,9 +19,7 @@ export class ShowTaskComponent implements OnInit {
   }
 
   onClear() {
-    localStorage.removeItem('test');
-    this.router.navigateByUrl('/tasks', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['tasks']);
-    });
+    this.taskService.onRemoveAllTask();
+    this.listTask = this.taskService.onGetListTask();
   }
 }

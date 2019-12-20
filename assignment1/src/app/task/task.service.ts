@@ -19,6 +19,11 @@ export class TaskService {
     localStorage.setItem('test', JSON.stringify(this.listTask));
   }
 
+  onRemoveAllTask() {
+    localStorage.removeItem('test');
+    this.listTask = this.onGetListTask();
+  }
+
   onCreateListTask(newTask: Task) {
     this.listTask.push(newTask);
     this.onSetListTask();
