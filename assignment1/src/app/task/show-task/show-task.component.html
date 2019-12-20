@@ -1,0 +1,15 @@
+<button (click)="onClear()" class="btn btn-danger mt-2">Clear All Task</button>
+<div class="row justify-content-center">
+  <div class="card text-white mb-3 m-2 col-md-2 p-0" *ngFor="let task of listTask"
+       [ngClass]="task.status?'bg-success':'bg-secondary'">
+    <div class="card-header">{{task.title}}</div>
+    <div class="card-body">
+      <h6 class="card-title" *ngIf="!task.status;else taskDone">Task available</h6>
+      <ng-template #taskDone>
+        <h6 class="card-title">Task is Done</h6>
+      </ng-template>
+      <p class="card-text">{{task.description}}</p>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,12 @@
+.right-position {
+  position: absolute;
+  right: 15px;
+}
+
+i.fa-trash {
+  color: red;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
