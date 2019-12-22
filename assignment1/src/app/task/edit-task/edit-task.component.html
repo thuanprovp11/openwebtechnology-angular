@@ -1,0 +1,16 @@
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action active font-weight-bold">
+    Available
+  </button>
+  <button type="button" class="list-group-item list-group-item-action" *ngFor="let task of tasks|slice:0:7;let i=index"
+          (click)="onChangeStatusTask(i)" [ngClass]="{'line-through':task.status}">
+    <i class="fa fa-check" *appCheckedTaskDom="task.status"></i><span class="lead"> {{task.title}}
+    - {{task.description}}</span>
+    <i class="fa fa-trash fa-2x right-position"></i>
+
+  </button>
+
+  <button type="button" class="list-group-item list-group-item-action" *ngIf="tasks.length==0">
+    You not have task to day, create new task beside!
+  </button>
+</div>
