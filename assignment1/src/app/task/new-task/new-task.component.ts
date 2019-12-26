@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Task} from '../../shared/task.model';
+import {ListTasks, Task} from '../../shared/task.model';
 import {TaskService} from '../task.service';
 
 @Component({
@@ -8,24 +8,33 @@ import {TaskService} from '../task.service';
   styleUrls: ['./new-task.component.css']
 })
 export class NewTaskComponent implements OnInit {
-  task: Task = {
-    title: '',
-    description: '',
-    status: false
-  };
+  newCurrentTasks: ListTasks;
 
   constructor(private taskService: TaskService) {
+    this.newCurrentTasks = this.taskService.defaultListTask;
   }
 
   ngOnInit() {
   }
 
-  onClearFields() {
-    this.task.title = '';
-    this.task.description = '';
+  onAddNewTask() {
+    this.newCurrentTasks.tasks.push(new Task('', new Date(), 'available', new Date()));
   }
 
-  onCreateNewTask() {
-    this.taskService.onCreateListTask({title: this.task.title, description: this.task.description, status: false});
+  onRemoveTask(id) {
+    if (this.newCurrentTasks.tasks.length === 1) {
+      alert(`Can't remove last item`);
+    } else {
+      this.newCurrentTasks.tasks.splice(id, 1);
+    }
+  }
+
+  onSaveListTask() {
+    this.taskService.onAddNewListTask(this.newCurrentTasks);
+    alert('Save success!');
+  }
+
+  onChangeStatus(id: number, status: string) {
+    this.newCurrentTasks.tasks[id].status = status;
   }
 }
