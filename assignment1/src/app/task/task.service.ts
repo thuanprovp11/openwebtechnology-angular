@@ -1,11 +1,12 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {ListTasks} from '../shared/task.model';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  editEvent = new EventEmitter<ListTasks>();
+  newListTask = new Subject<ListTasks[]>();
   listTask: ListTasks[] = this.onGetListTask();
   defaultListTask: ListTasks = {
     categoryName: 'category 1',
@@ -26,12 +27,14 @@ export class TaskService {
   onRemoveAllTask() {
     localStorage.removeItem('database');
     this.listTask = this.onGetListTask();
+    this.newListTask.next(this.listTask);
   }
 
   onAddNewListTask(newListTask: ListTasks) {
     this.listTask.push(newListTask);
     this.onSetListTask();
     this.listTask = this.onGetListTask();
+    this.newListTask.next( this.listTask);
   }
 
   onConvertData(dataSource) {

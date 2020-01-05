@@ -1,0 +1,82 @@
+<div class="row justify-content-md-center">
+  <div class="col-xs-12 col-md-10 col-lg-6 ">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+          <input type="text" class="form-control no-border" placeholder="Enter category" formControlName="categoryName">
+          <p class="small text-danger"
+             *ngIf="!taskForm.get('categoryName').valid && taskForm.get('categoryName').touched">Category
+            name must be has a name</p>
+          <div class="custom-control custom-checkbox mt-3" #taskElement>
+            <div formArrayName="tasks">
+              <div class="form-check pt-1 pb-1 row-border"
+                   *ngFor="let taskCtrl of taskForm.get('tasks').controls;let i = index" [formGroupName]="i">
+                <input class="form-check-input" type="checkbox" (change)="onChangeStatusTask($event)">
+                <!--formControlName="status"-->
+                <div class="full-width">
+                  <input type="text" class="form-check-label no-border col-8" formControlName='name'>
+                  <span>
+                  <span class="col-2">
+                    <!--<select formControlName="status">-->
+                    <!--<option value="available">Available</option>-->
+                    <!--<option value="implement">Implement</option>-->
+                    <!--<option value="done">Done</option>-->
+                    <!--</select>-->
+                  </span>
+                    <!--<span class="col-1"><i class="fa fa-history text-success"></i>-->
+                  <span class="col-1" [owlDateTimeTrigger]="dt1">
+                              <i class="fa fa-history text-success trigger"></i>
+                              <input [owlDateTime]="dt1" class="datetime-widget hidden--element"
+                                     [min]="minDate" formControlName="deadline">
+                            </span>
+                  <owl-date-time #dt1></owl-date-time>
+                  <span><i class="fa fa-times col-1 text-danger" (click)="onDeleteTask(i)"></i></span>
+                  </span>
+                  <p>
+                    <span class="small text-danger"
+                          *ngIf="!taskForm.get('tasks').controls[i].valid ">*required <br></span>
+                    <span class="small">Status: {{taskForm.get('tasks').controls[i].get('status').value}}</span> <br>
+                    <span
+                      class="small">Deadline: {{taskForm.get('tasks').controls[i].get('deadline').value| date:'short'}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <div class="row">
+                <div class="col-1"><i class="fa fa-plus"></i></div>
+                <div class="col-10 p-0">
+                  <input type="text" placeholder="new task" class="col-12 no-border p-0"
+                         (keydown)="onNewTask($event)" #taskNewValue>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <input type="button" class="btn btn-outline-info" value="Cancel" (click)="onResetForm()">
+            <input type="submit" class="btn btn-primary ml-3" [disabled]="!taskForm.valid" value="Save">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12 col-md-4 col-lg-4 mt-4" *ngFor="let tasks of listOfTasks">
+    <div class="card">
+      <div class="card-body">
+        <h4>{{tasks.categoryName}}</h4>
+        <div *ngFor="let t of tasks.tasks">
+          <div class="form-check pt-1 pb-1 row-border">
+            <input class="form-check-input" type="checkbox">
+            <div class="full-width">
+              <input type="text" class="form-check-label no-border col-8" [value]="t.name">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

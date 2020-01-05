@@ -28,11 +28,14 @@ export class ShowTaskComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.taskService.newListTask.subscribe((data) => {
+      this.dataSource = new MatTableDataSource(this.taskService.onConvertData(data));
+    });
   }
 
   onClear() {
     this.taskService.onRemoveAllTask();
-    this.dataSource = new MatTableDataSource(this.taskService.onConvertData(this.taskService.onGetListTask()));
+    // this.dataSource = new MatTableDataSource(this.taskService.onConvertData(this.taskService.onGetListTask()));
   }
 
   applyFilter(filterValue: string) {
