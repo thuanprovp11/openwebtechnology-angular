@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './new-task-google-keep-ui.component.html',
   styleUrls: ['./new-task-google-keep-ui.component.css']
 })
-export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy,AfterViewInit {
+export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('taskElement', {static: true}) tasksEle: ElementRef;
   @ViewChild('taskNewValue', {static: true}) tasksNewValue: ElementRef;
   taskForm: FormGroup;
@@ -45,14 +45,24 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy,AfterView
     }
   }
 
-  onChangeStatusTask(e: any) {
+  onChangeStatusTask(e: any, i: number) {
     if (e.target.checked) {
       // (this.taskForm.get('tasks') as FormArray).controls[i].get('status').value = 'implement';
-      this.taskForm.patchValue({status: 'implement'});
+      // this.taskForm.patchValue();
+      (this.taskForm.get('tasks') as FormArray).controls[i].patchValue({status: 'done'});
+      // this.taskForm.patchValue();
     } else {
-      this.taskForm.patchValue({status: 'available'});
+      (this.taskForm.get('tasks') as FormArray).controls[i].patchValue({status: 'implement'});
     }
   }
+
+  onChangeOldStatusTask(e: any, i: number) {
+    if (e.target.checked) {
+    } else {
+
+    }
+  }
+
   ngAfterViewInit(): void {
     // this.renderer2.selectRootElement('input').focus();
   }
