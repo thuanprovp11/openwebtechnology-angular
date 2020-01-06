@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Form, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ListTasks} from '../../shared/task.model';
 import {TaskService} from '../task.service';
@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './new-task-google-keep-ui.component.html',
   styleUrls: ['./new-task-google-keep-ui.component.css']
 })
-export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy {
+export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy,AfterViewInit {
   @ViewChild('taskElement', {static: true}) tasksEle: ElementRef;
   @ViewChild('taskNewValue', {static: true}) tasksNewValue: ElementRef;
   taskForm: FormGroup;
@@ -17,7 +17,7 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy {
   listOfTasks: ListTasks[] = [];
   subsData: Subscription;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private renderer2: Renderer2) {
   }
 
   ngOnInit() {
@@ -48,13 +48,13 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy {
   onChangeStatusTask(e: any) {
     if (e.target.checked) {
       // (this.taskForm.get('tasks') as FormArray).controls[i].get('status').value = 'implement';
-      this.taskForm.patchValue({
-        tasks:
-          {status: 'implement'}
-      });
+      this.taskForm.patchValue({status: 'implement'});
     } else {
       this.taskForm.patchValue({status: 'available'});
     }
+  }
+  ngAfterViewInit(): void {
+    // this.renderer2.selectRootElement('input').focus();
   }
 
   onNewTask(e: KeyboardEvent) {
@@ -64,6 +64,9 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy {
       status: new FormControl('available', Validators.required),
       deadline: new FormControl(new Date()),
     }));
+    // console.log((this.ele.nativeElement));
+    // (this.ele.nativeElement as HTMLElement).focus();
+    // this.renderer2.selectRootElement('#ele').focus();
     // console.log((this.tasksEle.nativeElement as HTMLElement).lastChild.previousSibling.lastChild.fo);
     // (this.tasksEle.nativeElement as HTMLElement).lastChild.previousSibling.lastChild.focus();
   }

@@ -11,17 +11,17 @@
             <div formArrayName="tasks">
               <div class="form-check pt-1 pb-1 row-border"
                    *ngFor="let taskCtrl of taskForm.get('tasks').controls;let i = index" [formGroupName]="i">
-                <input class="form-check-input" type="checkbox" (change)="onChangeStatusTask($event)">
+                <input class="form-check-input" type="checkbox" >
                 <!--formControlName="status"-->
                 <div class="full-width">
-                  <input type="text" class="form-check-label no-border col-8" formControlName='name'>
+                  <input type="text" class="form-check-label no-border col-6" formControlName='name' #ele>
                   <span>
                   <span class="col-2">
-                    <!--<select formControlName="status">-->
-                    <!--<option value="available">Available</option>-->
-                    <!--<option value="implement">Implement</option>-->
-                    <!--<option value="done">Done</option>-->
-                    <!--</select>-->
+                    <select formControlName="status">
+                    <option value="available">Available</option>
+                    <option value="implement">Implement</option>
+                    <option value="done">Done</option>
+                    </select>
                   </span>
                     <!--<span class="col-1"><i class="fa fa-history text-success"></i>-->
                   <span class="col-1" [owlDateTimeTrigger]="dt1">
