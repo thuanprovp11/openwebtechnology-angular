@@ -14,6 +14,7 @@ import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
 import {HoverRowTableDirective} from './shared/hover-row-table.directive';
 import { NewTaskGoogleKeepUiComponent } from './task/new-task-google-keep-ui/new-task-google-keep-ui.component';
+import { TaskCardSelectedDirective } from './shared/task-card-selected.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NewTaskGoogleKeepUiComponent } from './task/new-task-google-keep-ui/new
     ShowTaskComponent,
     CheckedTaskDomDirective,
     HoverRowTableDirective,
-    NewTaskGoogleKeepUiComponent
+    NewTaskGoogleKeepUiComponent,
+    TaskCardSelectedDirective
   ],
   imports: [
     BrowserModule,

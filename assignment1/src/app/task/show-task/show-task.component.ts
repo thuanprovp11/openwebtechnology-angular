@@ -34,7 +34,10 @@ export class ShowTaskComponent implements OnInit {
   }
 
   onClear() {
-    this.taskService.onRemoveAllTask();
+    const result = confirm('Do you want to delete all tasks?');
+    if (result) {
+      this.taskService.onRemoveAllTask();
+    }
     // this.dataSource = new MatTableDataSource(this.taskService.onConvertData(this.taskService.onGetListTask()));
   }
 

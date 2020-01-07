@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Form, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ListTasks} from '../../shared/task.model';
+import {ListTasks, Task} from '../../shared/task.model';
 import {TaskService} from '../task.service';
 import {Subscription} from 'rxjs';
 
@@ -11,13 +11,12 @@ import {Subscription} from 'rxjs';
 })
 export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('taskElement', {static: true}) tasksEle: ElementRef;
-  @ViewChild('taskNewValue', {static: true}) tasksNewValue: ElementRef;
   taskForm: FormGroup;
   minDate = new Date();
   listOfTasks: ListTasks[] = [];
   subsData: Subscription;
 
-  constructor(private taskService: TaskService, private renderer2: Renderer2) {
+  constructor(private taskService: TaskService) {
   }
 
   ngOnInit() {
@@ -36,7 +35,7 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
   }
 
   onSubmit() {
-    console.log(this.taskForm);
+    // console.log(this.taskForm);
     if (this.taskForm.valid) {
       this.taskService.onAddNewListTask(this.taskForm.value);
       alert('Save Success');
@@ -56,10 +55,11 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
     }
   }
 
-  onChangeOldStatusTask(e: any, i: number) {
+  onChangeOldStatusTask(e: any, idListTask: number, idTask: number) {
     if (e.target.checked) {
+      this.taskService.onChangeStatusTaskById(idListTask, idTask, 'done');
     } else {
-
+      this.taskService.onChangeStatusTaskById(idListTask, idTask, 'implement');
     }
   }
 
@@ -67,23 +67,42 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
     // this.renderer2.selectRootElement('input').focus();
   }
 
-  onNewTask(e: KeyboardEvent) {
+  onNewTask(e: any) {
     (this.taskForm.get('tasks') as FormArray).push(new FormGroup({
-      name: new FormControl(e.key, Validators.required),
+      name: new FormControl(e.target.value, Validators.required),
       createdAt: new FormControl(new Date()),
       status: new FormControl('available', Validators.required),
       deadline: new FormControl(new Date()),
     }));
-    // console.log((this.ele.nativeElement));
-    // (this.ele.nativeElement as HTMLElement).focus();
-    // this.renderer2.selectRootElement('#ele').focus();
-    // console.log((this.tasksEle.nativeElement as HTMLElement).lastChild.previousSibling.lastChild.fo);
-    // (this.tasksEle.nativeElement as HTMLElement).lastChild.previousSibling.lastChild.focus();
+  }
+
+  onEditTask(e: any, idListTask, idTask) {
+    console.log(e.target.value);
+    this.taskService.onEditTaskByName(idListTask, idTask, e.target.value);
+  }
+
+  onNewTaskOfLoaded(e: any, idListTask: number) {
+    // console.log(e, idListTask);
+    if (e.target.value !== '') {
+      this.taskService.onPushNewTask(idListTask, new Task(e.target.value, new Date(), 'available', new Date()));
+      e.target.value = '';
+    }
   }
 
   onResetForm() {
     (this.taskForm.get('tasks') as FormArray).clear();
     this.taskForm.reset();
+  }
+
+  onRemoveListTask(id: number) {
+    const result = confirm('Do you want to remove this task?');
+    if (result) {
+      this.taskService.onRemoveListTaskById(id);
+    }
+  }
+
+  onRemoveTask(idListTask: number, idTask: number) {
+    this.taskService.onRemoveTaskById(idListTask, idTask);
   }
 
   onDeleteTask(index: number) {

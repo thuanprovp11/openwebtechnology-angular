@@ -32,6 +32,11 @@ textarea {
   border-bottom: 1px solid #0000002e;
 }
 
+.card-selected {
+  border: 2px solid #292929;
+  border-radius: 8px;
+}
+
 .full-width {
   width: 100%;
   max-width: 100%;
@@ -41,4 +46,25 @@ input[type="text"]:focus {
   border: none;
   box-shadow: none;
   outline: none;
+}
+
+.position__btn--close {
+  top: 10px;
+  right: 10px;
+}
+
+.tooltip-custom {
+  position: absolute;
+  background: #2dd4efd4;
+  z-index: 2;
+  right: 45px;
+  top:20px;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 5px;
+  display: none;
+}
+
+.tooltip-custom--hover:hover + .tooltip-custom {
+  display: block;
 }
