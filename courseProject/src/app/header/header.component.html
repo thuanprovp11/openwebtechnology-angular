@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/recipes">
+    <img
+      src="https://image.flaticon.com/icons/png/512/36/36488.png"
+      width="30" height="30" class="d-inline-block align-top" alt="">
+    Recipe Book
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+          (click)="isShowMenuCollapse=!isShowMenuCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngClass]="{'show':isShowMenuCollapse}">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active" *ngIf="isAuthenticated">
+        <a class="nav-link" routerLink="/recipes">Recipes</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/shopping-list']">Shopping Lists</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" *ngIf="!isAuthenticated">
+        <a class="nav-link" [routerLink]="['/auth']">Login</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
+      <div class="btn-group">
+        <a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+           (click)="isShowMenu=!isShowMenu">
+          Manager
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" [ngClass]="{'show':isShowMenu}">
+          <li class="dropdown-item" type="button" (click)="onSaveAllRecipes()">Save Data</li>
+          <li class="dropdown-item" type="button" (click)="onFetchAllRecipes()">Fetch Data</li>
+          <li class="dropdown-item" type="button" (click)="onLogout()">Logout</li>
+        </ul>
+      </div>
+      <!--<a class="dropdown-toggle" role="button" appDropdown>Manager</a>-->
+      <!--<li class="dropdown">-->
+      <!--<ul class="dropdown-menu show">-->
+      <!--<li><a >Save Data</a></li>-->
+      <!--<li><a >Fetch Data</a></li>-->
+      <!--</ul>-->
+      <!--</li>-->
+    </ul>
+  </div>
+</nav>
