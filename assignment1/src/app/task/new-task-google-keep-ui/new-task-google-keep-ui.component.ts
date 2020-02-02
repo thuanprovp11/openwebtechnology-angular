@@ -1,20 +1,21 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Form, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ListTasks, Task} from '../../shared/task.model';
-import {TaskService} from '../task.service';
-import {Subscription} from 'rxjs';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ListTasks, Task } from '../../shared/task.model';
+import { TaskService } from '../task.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-new-task-google-keep-ui',
   templateUrl: './new-task-google-keep-ui.component.html',
   styleUrls: ['./new-task-google-keep-ui.component.css']
 })
-export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy {
   @ViewChild('taskElement', {static: true}) tasksEle: ElementRef;
   taskForm: FormGroup;
   minDate = new Date();
   listOfTasks: ListTasks[] = [];
   subsData: Subscription;
+  errorMessage: string;
 
   constructor(private taskService: TaskService) {
   }
@@ -22,7 +23,7 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
   ngOnInit() {
     this.taskForm = new FormGroup({
       categoryName: new FormControl('', Validators.required),
-      tasks: new FormArray([])
+      tasks: new FormArray([], Validators.required)
     });
     this.listOfTasks = this.taskService.onGetListTask();
     this.subsData = this.taskService.newListTask.subscribe((data) => {
@@ -35,21 +36,25 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
   }
 
   onSubmit() {
-    // console.log(this.taskForm);
     if (this.taskForm.valid) {
       this.taskService.onAddNewListTask(this.taskForm.value);
-      alert('Save Success');
+      this.errorMessage = 'Save success!!!';
     } else {
-      alert('data not valid');
+      this.errorMessage = 'This form not valid!!!';
     }
+  }
+
+  get taskControls() {
+    return (this.taskForm.get('tasks') as FormArray).controls;
+  }
+
+  onHandleError() {
+    this.errorMessage = null;
   }
 
   onChangeStatusTask(e: any, i: number) {
     if (e.target.checked) {
-      // (this.taskForm.get('tasks') as FormArray).controls[i].get('status').value = 'implement';
-      // this.taskForm.patchValue();
       (this.taskForm.get('tasks') as FormArray).controls[i].patchValue({status: 'done'});
-      // this.taskForm.patchValue();
     } else {
       (this.taskForm.get('tasks') as FormArray).controls[i].patchValue({status: 'implement'});
     }
@@ -63,9 +68,6 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
     }
   }
 
-  ngAfterViewInit(): void {
-    // this.renderer2.selectRootElement('input').focus();
-  }
 
   onNewTask(e: any) {
     (this.taskForm.get('tasks') as FormArray).push(new FormGroup({
@@ -74,6 +76,7 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
       status: new FormControl('available', Validators.required),
       deadline: new FormControl(new Date()),
     }));
+    e.target.value = '';
   }
 
   onEditTask(e: any, idListTask, idTask) {
@@ -82,7 +85,6 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy, AfterVie
   }
 
   onNewTaskOfLoaded(e: any, idListTask: number) {
-    // console.log(e, idListTask);
     if (e.target.value !== '') {
       this.taskService.onPushNewTask(idListTask, new Task(e.target.value, new Date(), 'available', new Date()));
       e.target.value = '';

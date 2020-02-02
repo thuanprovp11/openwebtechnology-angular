@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ListTasks, Task} from '../../shared/task.model';
-import {TaskService} from '../task.service';
+import { Component, OnInit } from '@angular/core';
+import { ListTasks, Task } from '../../shared/task.model';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-new-task',

@@ -1,5 +1,5 @@
-import {Directive, HostBinding, HostListener, Input} from '@angular/core';
-import {ListTasks} from './task.model';
+import { Directive, HostListener, Input } from '@angular/core';
+import { ListTasks } from './task.model';
 
 @Directive({
   selector: '[appHoverRowTable]'
@@ -7,8 +7,7 @@ import {ListTasks} from './task.model';
 export class HoverRowTableDirective {
   @Input() dataTask: ListTasks;
 
-  @HostListener('click') onClick(event: Event) {
-    console.log(this.dataTask);
+  @HostListener('click') onClick() {
   }
 
   constructor() {

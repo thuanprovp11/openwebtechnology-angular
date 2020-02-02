@@ -1,6 +1,6 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {ListTasks} from '../shared/task.model';
-import {Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ListTasks } from '../shared/task.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -72,17 +72,16 @@ export class TaskService {
 
   onConvertData(dataSource) {
     dataSource = dataSource.map(x => {
-      let arr = [];
-      arr = x.tasks.map(c => {
-        let obj = {};
-        obj['category'] = x.categoryName;
-        obj['name'] = c.name;
-        obj['status'] = c.status;
-        obj['createAt'] = c.createdAt;
-        obj['deadline'] = c.deadline;
-        return obj;
+      // let arr = [];
+      return x.tasks.map(c => {
+        return {
+          category: x.categoryName,
+          name: c.name,
+          status: c.status,
+          createAt: c.createdAt,
+          deadline: c.deadline
+        };
       });
-      return arr;
     });
     return [].concat.apply([], dataSource);
   }

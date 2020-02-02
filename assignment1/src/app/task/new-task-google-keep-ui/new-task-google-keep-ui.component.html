@@ -1,3 +1,5 @@
+<!--Form Created task-->
+<app-pop-up *ngIf="errorMessage" [message]="errorMessage" (closeMessage)="onHandleError()"></app-pop-up>
 <div class="row justify-content-md-center">
   <div class="col-xs-12 col-md-10 col-lg-6 ">
     <div class="card">
@@ -10,21 +12,12 @@
           <div class="custom-control custom-checkbox mt-3" #taskElement>
             <div formArrayName="tasks">
               <div class="form-check pt-1 pb-1 row-border"
-                   *ngFor="let taskCtrl of taskForm.get('tasks').controls;let i = index" [formGroupName]="i">
+                   *ngFor="let taskCtrl of taskControls;let i = index" [formGroupName]="i">
                 <input class="form-check-input" type="checkbox" (change)="onChangeStatusTask($event,i)"
                        [checked]="taskForm.get('tasks').controls[i].get('status').value=='done'">
-                <!--formControlName="status"-->
                 <div class="full-width">
                   <input type="text" class="form-check-label no-border col-8" formControlName='name'>
                   <span>
-                  <!--<span class="col-2">-->
-                    <!--<select formControlName="status">-->
-                    <!--<option value="available">Available</option>-->
-                    <!--<option value="implement">Implement</option>-->
-                    <!--<option value="done">Done</option>-->
-                    <!--</select>-->
-                    <!--</span>-->
-                    <!--<span class="col-1"><i class="fa fa-history text-success"></i>-->
                   <span class="col-1" [owlDateTimeTrigger]="dt1">
                               <i class="fa fa-history text-success trigger"></i>
                               <input [owlDateTime]="dt1" class="datetime-widget hidden--element"
@@ -45,7 +38,6 @@
             </div>
             <div class="form-group mt-2">
               <div class="row">
-                <!--<div class="col-1"><i class="fa fa-plus"></i></div>-->
                 <div class="col-10 p-0">
                   <input type="text" placeholder=" +   Add new task" class="col-12 no-border p-0"
                          (keydown.enter)="onNewTask($event)">
@@ -62,8 +54,9 @@
     </div>
   </div>
 </div>
+<!--End Form Created task-->
 
-
+<!--Form Show quick task created-->
 <div class="row">
   <div class="col-xs-12 col-md-6 col-lg-4 mt-4" *ngFor="let tasks of listOfTasks;let k =index">
     <div class="card" appTaskCardSelected>
@@ -84,7 +77,6 @@
               </span>
               <div class="tooltip-custom">Deadline: {{t.deadline|date:'short'}} <br>Status: {{t.status}}</div>
               <i class="fa fa-trash text-danger col-1 pl-3" (click)="onRemoveTask(k,i)"></i>
-              <!--{{t.deadline | date:'short'}} | {{t.status}}-->
             </div>
           </div>
         </div>
@@ -94,3 +86,4 @@
     </div>
   </div>
 </div>
+<!--End Form Show quick task created-->

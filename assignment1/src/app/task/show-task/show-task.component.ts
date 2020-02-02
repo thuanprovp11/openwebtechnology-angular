@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {TaskService} from '../task.service';
-import {Router} from '@angular/router';
-import {ListTasks} from '../../shared/task.model';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
-import {MatPaginator} from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TaskService } from '../task.service';
+import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-show-task',
@@ -19,9 +18,7 @@ export class ShowTaskComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
-  constructor(private taskService: TaskService, private router: Router) {
-    // this.dataSource = this.taskService.onConvertData(this.taskService.onGetListTask());
-    // this.dataSource = new MatTableDataSource(this.dataSource);
+  constructor(private taskService: TaskService) {
     console.log('Prototype', this.dataSource);
   }
 
@@ -38,7 +35,6 @@ export class ShowTaskComponent implements OnInit {
     if (result) {
       this.taskService.onRemoveAllTask();
     }
-    // this.dataSource = new MatTableDataSource(this.taskService.onConvertData(this.taskService.onGetListTask()));
   }
 
   applyFilter(filterValue: string) {
@@ -46,11 +42,6 @@ export class ShowTaskComponent implements OnInit {
   }
 
   isOverTime(data) {
-    // console.log(data);
-    if (new Date(data.deadline) < new Date() && data.status !== 'done') {
-      return true;
-    } else {
-      return false;
-    }
+    return new Date(data.deadline) < new Date() && data.status !== 'done';
   }
 }
