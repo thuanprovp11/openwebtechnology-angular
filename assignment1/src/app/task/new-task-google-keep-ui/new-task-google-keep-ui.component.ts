@@ -97,14 +97,17 @@ export class NewTaskGoogleKeepUiComponent implements OnInit, OnDestroy {
   }
 
   onRemoveListTask(id: number) {
-    const result = confirm('Do you want to remove this task?');
+    const result = confirm('Do you want to remove this category?');
     if (result) {
       this.taskService.onRemoveListTaskById(id);
     }
   }
 
   onRemoveTask(idListTask: number, idTask: number) {
-    this.taskService.onRemoveTaskById(idListTask, idTask);
+    const result = confirm('Do you want to remove this task?');
+    if (result) {
+      this.taskService.onRemoveTaskById(idListTask, idTask);
+    }
   }
 
   onDeleteTask(index: number) {

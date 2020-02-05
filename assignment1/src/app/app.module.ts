@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { TaskComponent } from './task/task.component';
-import { NewTaskComponent } from './task/new-task/new-task.component';
 import { ShowTaskComponent } from './task/show-task/show-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckedTaskDomDirective } from './shared/checked-task-dom.directive';
@@ -22,7 +21,6 @@ import { PopUpComponent } from './pop-up/pop-up.component';
     AppComponent,
     HeaderComponent,
     TaskComponent,
-    NewTaskComponent,
     ShowTaskComponent,
     CheckedTaskDomDirective,
     HoverRowTableDirective,

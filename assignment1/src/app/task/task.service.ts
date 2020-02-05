@@ -8,10 +8,6 @@ import { Subject } from 'rxjs';
 export class TaskService {
   newListTask = new Subject<ListTasks[]>();
   listTask: ListTasks[] = this.onGetListTask();
-  defaultListTask: ListTasks = {
-    categoryName: 'category 1',
-    tasks: [{name: 'task 1', deadline: new Date(), createdAt: new Date(), status: 'available'}]
-  };
 
   constructor() {
   }
@@ -29,19 +25,39 @@ export class TaskService {
     this.newListTask.next(this.listTask);
   }
 
+  onCheckPropertyExits(idListTask: number, idTask: number = -1) {
+    if (idTask === -1) {
+      return this.listTask[idListTask];
+    } else {
+      return !(!this.listTask[idListTask] || !this.listTask[idListTask].tasks[idTask]);
+    }
+  }
+
   onChangeStatusTaskById(idListTask: number, idTask: number, newStatus: string) {
-    this.listTask[idListTask].tasks[idTask].status = newStatus;
-    this.onSaveAndBindingNewListTask();
+    if (this.onCheckPropertyExits(idListTask, idTask)) {
+      this.listTask[idListTask].tasks[idTask].status = newStatus;
+      this.onSaveAndBindingNewListTask();
+    } else {
+      alert('id not valid!!!');
+    }
   }
 
   onEditTaskByName(idListTask: number, idTask: number, name: string) {
-    this.listTask[idListTask].tasks[idTask].name = name;
-    this.onSaveAndBindingNewListTask();
+    if (this.onCheckPropertyExits(idListTask, idTask)) {
+      this.listTask[idListTask].tasks[idTask].name = name;
+      this.onSaveAndBindingNewListTask();
+    } else {
+      alert('id not valid!!!');
+    }
   }
 
   onPushNewTask(idListTask: number, newTask) {
-    this.listTask[idListTask].tasks.push(newTask);
-    this.onSaveAndBindingNewListTask();
+    if (this.onCheckPropertyExits(idListTask)) {
+      this.listTask[idListTask].tasks.push(newTask);
+      this.onSaveAndBindingNewListTask();
+    } else {
+      alert('id not valid!!!');
+    }
   }
 
   onRemoveAllTask() {
@@ -56,12 +72,16 @@ export class TaskService {
   }
 
   onRemoveTaskById(idListTask: number, idTask: number) {
-    if (this.listTask[idListTask].tasks.length === 1) {
-      this.onRemoveListTaskById(idListTask);
-      this.onSaveAndBindingNewListTask();
+    if (this.onCheckPropertyExits(idListTask, idTask)) {
+      if (this.listTask[idListTask].tasks.length <= 1) {
+        this.onRemoveListTaskById(idListTask);
+        this.onSaveAndBindingNewListTask();
+      } else {
+        this.listTask[idListTask].tasks.splice(idTask, 1);
+        this.onSaveAndBindingNewListTask();
+      }
     } else {
-      this.listTask[idListTask].tasks.splice(idTask, 1);
-      this.onSaveAndBindingNewListTask();
+      alert('not valid!!!');
     }
   }
 
