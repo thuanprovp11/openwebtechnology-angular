@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './modules/header/header.component';
-import { FooterComponent } from './modules/footer/footer.component';
+import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +18,8 @@ import { BookDetailComponent } from './modules/book/book-detail/book-detail.comp
 import { BookCreateComponent } from './modules/book/book-create/book-create.component';
 import { BookEditComponent } from './modules/book/book-edit/book-edit.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BookComponent } from './modules/book/book.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     BookDetailComponent,
     BookCreateComponent,
     BookEditComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     LayoutModule,
     MatSidenavModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

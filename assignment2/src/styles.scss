@@ -9,6 +9,17 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.book {
+  &__title {
+    font-weight: 500!important;
+    letter-spacing: 0.3em;
+  }
+}
+
+.text--center {
+  text-align: center;
+}
+
 .flex-spacer {
   -webkit-box-flex: 1;
   flex-grow: 1;
@@ -17,4 +28,8 @@ body {
 .flex-container {
   display: flex;
   align-items: stretch;
+}
+
+.content {
+  padding-top: 25px;
 }
