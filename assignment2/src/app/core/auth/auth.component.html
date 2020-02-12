@@ -1,0 +1,17 @@
+<!--$event.preventDefault() for denied submit form when click button-->
+<form (click)="$event.preventDefault()">
+  <div class="text--center ">
+    <mat-icon class="fix-center-icon">account_circle</mat-icon>
+  </div>
+  <mat-form-field class="input--full-width">
+    <mat-label>Username:</mat-label>
+    <input matInput placeholder="Enter your username">
+  </mat-form-field>
+  <mat-form-field class="input--full-width">
+    <mat-label>Password:</mat-label>
+    <input matInput placeholder="Enter your username" type="password">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary">Login</button>
+  <button mat-raised-button matDialogClose class="ml-10">Cancel</button>
+</form>

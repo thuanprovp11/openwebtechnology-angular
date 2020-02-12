@@ -20,6 +20,11 @@ import { BookEditComponent } from './modules/book/book-edit/book-edit.component'
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BookComponent } from './modules/book/book.component';
 import { MatCardModule } from '@angular/material/card';
+import { AuthComponent } from './core/auth/auth.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogMatComponent } from './shared/dialog-mat/dialog-mat.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -32,7 +37,9 @@ import { MatCardModule } from '@angular/material/card';
     BookDetailComponent,
     BookCreateComponent,
     BookEditComponent,
-    BookComponent
+    BookComponent,
+    AuthComponent,
+    DialogMatComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +52,10 @@ import { MatCardModule } from '@angular/material/card';
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
