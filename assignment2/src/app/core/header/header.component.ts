@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogMatComponent } from '../../shared/dialog-mat/dialog-mat.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthComponent } from '../auth/auth.component';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogMatComponent, {
+    const dialogRef = this.dialog.open(AuthComponent, {
       width: '300px',
     });
     dialogRef.updatePosition({
