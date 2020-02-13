@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { UserModel } from '../../shared/user.model';
 
 export interface LoginData {
@@ -13,13 +13,14 @@ export interface LoginData {
   providedIn: 'root'
 })
 export class AuthService {
+  userStored = new BehaviorSubject<UserModel>(null);
 
   constructor(private http: HttpClient) {
   }
 
   login(data: LoginData) {
     return this.http.post('https://books-234.herokuapp.com/api/auth/login', data)
-      .pipe(catchError(this.handleError), tap(this.storeUserLogin));
+      .pipe(catchError(this.handleError), tap(this.storeUserLogin.bind(this)));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -32,8 +33,8 @@ export class AuthService {
   private storeUserLogin(resData) {
     const expDate = new Date(new Date().getTime() + 3600 * 1000);
     const userData = new UserModel(resData.role, resData.id, resData.token, expDate);
+    this.userStored.next(userData);
     localStorage.setItem('userLogin', JSON.stringify(userData));
-
   }
 
 }

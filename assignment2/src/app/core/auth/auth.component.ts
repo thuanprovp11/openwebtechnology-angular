@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
     const data: LoginData = {email: this.loginForm.value.email, password: this.loginForm.value.password};
     this.authService.login(data).subscribe(result => {
       this.isLoading = false;
-      console.log(result);
+      // console.log(result);
     }, error => {
       this.isLoading = false;
       alert(error);

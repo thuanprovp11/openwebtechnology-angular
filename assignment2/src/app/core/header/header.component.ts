@@ -1,18 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthComponent } from '../auth/auth.component';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
+import * as JWT from 'node_modules/jwt-decode';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
-  constructor(public dialog: MatDialog) {
+  isAuthentication = false;
+  userSub: Subscription;
+
+  constructor(public dialog: MatDialog, private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.userSub = this.authService.userStored.subscribe(user => {
+      if (user == null) {
+        return;
+      }
+      this.isAuthentication = !!user;
+      console.log(user.getTokenUser);
+      // JWT(user.getTokenUser);
+      // console.log(JWT(user.getTokenUser));
+    });
   }
 
   openDialog() {
@@ -22,8 +37,9 @@ export class HeaderComponent implements OnInit {
     dialogRef.updatePosition({
       top: '20vh',
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('test closed!');
-    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
   }
 }
