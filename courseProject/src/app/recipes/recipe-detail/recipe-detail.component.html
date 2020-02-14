@@ -1,0 +1,39 @@
+<div class="row" *ngIf="currentRecipeDetail">
+  <div class="col-md-12">
+    <img [src]="currentRecipeDetail.imageURL" alt="" class="img-fluid">
+  </div>
+</div>
+<div class="row" *ngIf="currentRecipeDetail">
+  <div class="col-md-12">
+    <h4>{{currentRecipeDetail.name}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <!--#source (click)="onShowMenu()"-->
+    <div class="btn-group" appDropdown #source (click)="onShowMenu()">
+      <button class="btn btn-primary dropdown-toggle">Manager</button>
+      <!--dropdown-item: CSS class show menu-->
+      <!--#follow-->
+      <ul class="dropdown-menu" #follow>
+        <li class="dropdown-item" (click)="onAddToShoppingList(currentRecipeDetail.ingredients)"><a>Add to shopping
+          list</a></li>
+        <li class="dropdown-item" (click)="onEditRecipe()"><a>Edit</a></li>
+        <li class="dropdown-item" (click)="onDeleteRecipe()"><a>Delete</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    {{currentRecipeDetail.description}}
+  </div>
+</div>
+<div class="row" *ngIf="currentRecipeDetail">
+  <h4>We need ingredients:</h4>
+  <div class="col-md-12" *ngFor="let ing of currentRecipeDetail.ingredients">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action">{{ing.name}}({{ing.amount}})</li>
+    </ul>
+  </div>
+</div>

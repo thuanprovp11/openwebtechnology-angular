@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+    <form (ngSubmit)="addNewIngredient()" #myForm="ngForm">
+      <div class="row">
+        <div class="col-sm-5 form-group">
+          <label for="name">Name</label>
+          <input type="text"
+                 id="name"
+                 ngModel
+                 name="name"
+                 required
+                 class="form-control">
+        </div>
+        <div class="col-sm-2 form-group">
+          <label for="amount">Amount</label>
+          <input type="number"
+                 id="amount"
+                 ngModel
+                 name="amount"
+                 required
+                 [pattern]="'^[1-9]+[0-9]*$'"
+                 class="form-control">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <input type="submit" class="btn btn-success mr-2" [value]="!editMode?'Add':'Update'"
+                 [disabled]="!myForm.valid">
+          <!--// luôn luôn dùng type="butotn" cho input button hoặc btn trong form để tránh đồng thời kích hoạt cả ngSubmit()-->
+          <input type="button" class="btn btn-danger mr-2" value="Delete" *ngIf="editMode"
+                 (click)="onDeleteIngredient()">
+          <input type="button" class="btn btn-primary mr-2" value="Clear" (click)="onClearForm()">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
