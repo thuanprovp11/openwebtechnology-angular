@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { UserModel } from '../../shared/user.model';
+import * as jwt_decode from 'node_modules/jwt-decode';
 
 export interface LoginData {
   email: string;
@@ -14,12 +15,13 @@ export interface LoginData {
 })
 export class AuthService {
   userStored = new BehaviorSubject<UserModel>(null);
+  userNameStored = new BehaviorSubject<string>(null);
 
   constructor(private http: HttpClient) {
   }
 
   login(data: LoginData) {
-    return this.http.post('https://books-234.herokuapp.com/api/auth/login', data)
+    return this.http.post<UserModel>('https://books-234.herokuapp.com/api/auth/login', data)
       .pipe(catchError(this.handleError), tap(this.storeUserLogin.bind(this)));
   }
 
@@ -35,6 +37,14 @@ export class AuthService {
     const userData = new UserModel(resData.role, resData.id, resData.token, expDate);
     this.userStored.next(userData);
     localStorage.setItem('userLogin', JSON.stringify(userData));
+    const tokenDecode = jwt_decode(userData.getTokenUser);
+    this.userNameStored.next(tokenDecode.sub); // send userName to header component
+  }
+
+  logout() {
+    this.userNameStored.next(null);
+    this.userStored.next(null);
+    localStorage.removeItem('userLogin');
   }
 
 }

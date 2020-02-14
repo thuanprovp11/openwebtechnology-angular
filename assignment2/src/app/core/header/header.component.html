@@ -10,9 +10,13 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon">account_circle</mat-icon>
         Login
       </button>
-      <button mat-button (click)="openDialog()" *ngIf="!isAuthentication">
+      <button mat-button *ngIf="isAuthentication" (click)="onLogout()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">exit_to_app</mat-icon>
+        Logout
+      </button>
+      <button mat-button *ngIf="isAuthentication">
         <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
-        Hello,
+        Hello,{{username}}
       </button>
     </mat-toolbar>
 
