@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
-  openDialog() {
+  openDialogLogin() {
     const dialogRef = this.dialog.open(AuthComponent, {
       width: '300px',
     });

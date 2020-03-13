@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
-import { BehaviorSubject, throwError } from 'rxjs';
-import { UserModel } from '../../shared/user.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {catchError, tap} from 'rxjs/operators';
+import {BehaviorSubject, throwError} from 'rxjs';
+import {UserModel} from '../../shared/user.model';
 import * as jwt_decode from 'node_modules/jwt-decode';
 
 export interface LoginData {
@@ -25,9 +25,19 @@ export class AuthService {
       .pipe(catchError(this.handleError), tap(this.storeUserLogin.bind(this)));
   }
 
+  autoLogin() {
+    const userData:
+      { role: string, id: number, token: string, expToken: string } = JSON.parse(localStorage.getItem('userLogin'));
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new UserModel(userData.role, userData.id, userData.token, new Date(userData.expToken));
+    console.log(loadedUser);
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (!error.error || !error.error.message) {
-      return throwError('Ops! Something caused error!');
+      return throwError('Ops! Something error happened !');
     }
     return throwError(error.error.message);
   }

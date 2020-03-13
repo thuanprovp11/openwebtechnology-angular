@@ -1,12 +1,12 @@
 <header class="box-shadow">
   <nav>
     <mat-toolbar>
-      <button mat-button>
+      <button mat-button routerLink="book/book-list">
         <mat-icon aria-hidden="false" aria-label="Example home icon">library_books</mat-icon>
         Book management
       </button>
       <div class="flex-spacer"></div>
-      <button mat-button (click)="openDialog()" *ngIf="!isAuthentication">
+      <button mat-button (click)="openDialogLogin()" *ngIf="!isAuthentication">
         <mat-icon aria-hidden="false" aria-label="Example home icon">account_circle</mat-icon>
         Login
       </button>
@@ -14,7 +14,7 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon">exit_to_app</mat-icon>
         Logout
       </button>
-      <button mat-button *ngIf="isAuthentication">
+      <button mat-button *ngIf="isAuthentication" routerLink="user/user-profile">
         <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
         Hello,{{username}}
       </button>
