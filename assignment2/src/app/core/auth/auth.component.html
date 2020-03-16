@@ -12,7 +12,8 @@
     <input matInput placeholder="Enter your password" type="password" formControlName="password">
   </mat-form-field>
   <br>
-  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="loginForm.invalid || isLoading">Login
+  <button mat-raised-button color="primary" (click)="onSubmit()"
+          [disabled]="loginForm.invalid || isLoading">Login
   </button>
   <button mat-raised-button matDialogClose class="ml-10">Cancel</button>
 </form>

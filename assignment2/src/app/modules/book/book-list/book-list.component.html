@@ -1,5 +1,6 @@
 <div class="content">
   <h1 class=" text--center book__title">{{'Book Management'|uppercase}}</h1>
+  <button mat-raised-button color="primary" [routerLink]="['/book/new']">New Book</button>
   <mat-grid-list cols="3" rowHeight="70vh">
     <mat-grid-tile *ngFor="let book of listBooks">
       <mat-card class="book__card" [routerLink]="['/book/book-detail/',book.id]">

@@ -1,11 +1,12 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {BookComponent} from './modules/book/book.component';
-import {BookListComponent} from './modules/book/book-list/book-list.component';
-import {BookDetailComponent} from './modules/book/book-detail/book-detail.component';
-import {UserProfileComponent} from './modules/user/user-profile/user-profile.component';
-import {UserComponent} from './modules/user/user.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { BookComponent } from './modules/book/book.component';
+import { BookListComponent } from './modules/book/book-list/book-list.component';
+import { BookDetailComponent } from './modules/book/book-detail/book-detail.component';
+import { UserProfileComponent } from './modules/user/user-profile/user-profile.component';
+import { UserComponent } from './modules/user/user.component';
+import { BookCreateComponent } from './modules/book/book-create/book-create.component';
 
 
 const appRouter: Routes = [
@@ -13,7 +14,8 @@ const appRouter: Routes = [
   {
     path: 'book', component: BookComponent, children: [
       {path: 'book-list', component: BookListComponent},
-      {path: 'book-detail/:id', component: BookDetailComponent}
+      {path: 'book-detail/:id', component: BookDetailComponent},
+      {path: 'new', component: BookCreateComponent}
     ]
   },
   {
