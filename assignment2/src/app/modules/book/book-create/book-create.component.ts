@@ -23,8 +23,8 @@ export class BookCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.bookCreateService.onCreateNewBook(this.bookForm.value).subscribe(da => {
-      console.log(da);
+    this.bookCreateService.onCreateNewBook(this.bookForm.value).subscribe(data => {
+      console.log(data);
     });
   }
 

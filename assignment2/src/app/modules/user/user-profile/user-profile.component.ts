@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserProfileService } from './user-profile.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,20 +9,26 @@ import { AuthService } from '../../../core/auth/auth.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+  profileForm: FormGroup;
   currentUser;
-  infoUser;
   roles: { value: string, viewValue: string }[] = [
     {value: 'admin', viewValue: 'Admin'},
     {value: 'user', viewValue: 'User'},
   ];
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private userProfileService: UserProfileService) {
   }
 
   ngOnInit(): void {
     this.currentUser = this.authService.loadedUserLogin();
-    this.infoUser = this.authService.decodeToken(this.currentUser.token);
-    console.log(this.infoUser, this.currentUser);
+    this.userProfileService.onGetUserLoginInfoById().subscribe(data => {
+      this.currentUser = data;
+    });
+    // we do init form when data recived later
+    this.profileForm = new FormGroup({
+      fullName: new FormControl('test', Validators.required),
+      birthday: new FormControl(null, Validators.required)
+    });
   }
 
 

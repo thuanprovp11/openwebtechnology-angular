@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {BookModel, BookService} from "../../../shared/book.service";
-import {HttpClient} from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BookModel, BookService } from '../../../shared/book.service';
+import { HttpClient } from '@angular/common/http';
+import { BookDetailService } from './book-detail.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -10,17 +11,26 @@ import {HttpClient} from "@angular/common/http";
 })
 export class BookDetailComponent implements OnInit {
   currentBook: BookModel;
+  idBook: string;
 
-  constructor(private router: ActivatedRoute, private bookService: BookService) {
+  constructor(private router: ActivatedRoute, private bookService: BookService, private bookDetailService: BookDetailService) {
   }
 
   ngOnInit(): void {
     this.router.params.subscribe(id => {
-      console.log(id.id);
+      this.idBook = id.id;
       this.bookService.getBookDetailById(id.id).subscribe(book => {
         this.currentBook = book;
       });
     });
   }
 
+  onDeleteBook() {
+    const result = confirm('Are you sure to delete this book?');
+    if (result) {
+      this.bookDetailService.onDeleteBookById(this.idBook).subscribe(res => {
+        alert('success!!!');
+      });
+    }
+  }
 }

@@ -4,15 +4,12 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class BookCreateService {
-
+export class UserProfileService {
   constructor(private http: HttpClient) {
-
   }
 
-  onCreateNewBook(data) {
-    data.enable = true;
-    console.log(data);
-    return this.http.post('https://books-234.herokuapp.com/api/books', data);
+  onGetUserLoginInfoById() {
+    return this.http.get('https://books-234.herokuapp.com/api/users/' + 141);
   }
+
 }
