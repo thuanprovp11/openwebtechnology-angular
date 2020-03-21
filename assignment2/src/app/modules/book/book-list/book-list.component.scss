@@ -1,10 +1,38 @@
-mat-card {
-  margin: 3px;
+table {
+  width: 100%;
+  table-layout: fixed;
 }
 
-.book__card {
+th, td {
+  overflow: hidden;
+  width: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
-  img {
-    margin-bottom: 0;
+.mat-column {
+  &-id {
+    width: 10%;
+  }
+
+  &-title {
+    flex: 0 0 15%;
+    width: 20%;
+  }
+
+  &-author {
+    flex: 0 0 10%;
+    width: 10%;
+  }
+
+  &-description {
+    flex: 0 0 15%;
+    width: 30%;
+  }
+
+  &-createdBy {
+    flex: 0 0 8%;
+    width: 8%;
   }
 }
+

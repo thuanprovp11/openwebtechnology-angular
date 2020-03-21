@@ -34,6 +34,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AuthInterceptorService } from './core/auth/auth-interceptor.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -72,6 +74,8 @@ import { AuthInterceptorService } from './core/auth/auth-interceptor.service';
     MatNativeDateModule,
     MatSelectModule,
     MatTabsModule,
+    MatTableModule,
+    MatSortModule,
     AppRoutingModule
   ],
   providers: [

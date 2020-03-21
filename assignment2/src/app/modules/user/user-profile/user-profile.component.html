@@ -1,5 +1,5 @@
 <h1 class=" text--center book__title">USER PROFILE</h1>
-<form (click)="$event.preventDefault()" [formGroup]="profileForm">
+<form (click)="$event.preventDefault()" [formGroup]="profileForm" *ngIf="isLoaded">
   <mat-form-field appearance="legacy">
     <mat-label>Full name:</mat-label>
     <input matInput placeholder="Enter your full name" formControlName="fullName">
@@ -12,14 +12,7 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Select role:</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let role of roles" [value]="role.value">
-        {{role.viewValue}}
-      </mat-option>
-    </mat-select>
-    <mat-icon matSuffix>supervised_user_circle</mat-icon>
-  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onUpdateUserProfile()" [disabled]="profileForm.invalid">Update
+  </button>
+  <button mat-raised-button style="margin-left: 10px">Cancel</button>
 </form>
