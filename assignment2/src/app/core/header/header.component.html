@@ -1,7 +1,8 @@
 <header class="box-shadow">
   <nav>
     <mat-toolbar>
-      <button mat-icon-button (click)="snav.toggle()">
+      <!--snav.toggle()-->
+      <button mat-icon-button (click)="onOpenSideBar()">
         <mat-icon>menu</mat-icon>
       </button>
       <button mat-button routerLink="book/book-list">
@@ -22,6 +23,5 @@
         Hello,{{username}}
       </button>
     </mat-toolbar>
-
   </nav>
 </header>

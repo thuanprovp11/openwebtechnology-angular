@@ -37,6 +37,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
+import { UserListComponent } from './modules/user/user-list/user-list.component';
 
 
 @NgModule({
@@ -52,6 +55,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AuthComponent,
     UserComponent,
     UserProfileComponent,
+    SnackBarComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +83,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSortModule,
     MatChipsModule,
     MatTooltipModule,
+    MatSnackBarModule,
     AppRoutingModule
   ],
   providers: [

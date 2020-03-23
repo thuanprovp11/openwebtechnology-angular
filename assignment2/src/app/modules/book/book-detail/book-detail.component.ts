@@ -20,6 +20,7 @@ export class BookDetailComponent implements OnInit {
       this.idBook = id.id;
       this.bookService.getBookDetailById(id.id).subscribe(book => {
         this.currentBook = book;
+        console.log(this.currentBook.userDTO.email);
       });
     });
   }

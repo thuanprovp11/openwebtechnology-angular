@@ -8,6 +8,7 @@ import { UserProfileComponent } from './modules/user/user-profile/user-profile.c
 import { UserComponent } from './modules/user/user.component';
 import { BookCreateComponent } from './modules/book/book-create/book-create.component';
 import { AuthComponent } from './core/auth/auth.component';
+import { UserListComponent } from './modules/user/user-list/user-list.component';
 
 
 const appRouter: Routes = [
@@ -23,7 +24,8 @@ const appRouter: Routes = [
   },
   {
     path: 'user', component: UserComponent, children: [
-      {path: 'user-profile', component: UserProfileComponent}
+      {path: 'user-profile', component: UserProfileComponent},
+      {path: 'user-list', component: UserListComponent}
     ]
   }
 ];

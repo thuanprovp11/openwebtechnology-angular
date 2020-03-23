@@ -1,5 +1,9 @@
-.book__detail {
-  max-width: 30vw;
+.book--detail {
+  width: 60vw;
+
+  mat-tab {
+    max-width: 100%;
+  }
 }
 
 .book__image {

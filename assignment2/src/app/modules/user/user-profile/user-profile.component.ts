@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../core/auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserProfileService } from './user-profile.service';
+import { BookComponent } from '../../book/book.component';
+import { UserComponent } from '../user.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +19,7 @@ export class UserProfileComponent implements OnInit {
     {value: 'user', viewValue: 'User'},
   ];
 
-  constructor(private authService: AuthService, private userProfileService: UserProfileService) {
+  constructor(private authService: AuthService, private userProfileService: UserProfileService, private userComponent: UserComponent) {
   }
 
   ngOnInit(): void {
@@ -39,9 +41,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   onUpdateUserProfile() {
-    console.log(this.profileForm.value);
     this.userProfileService.onUpdateUserProfileApi(this.currentUser.id, this.profileForm.value).subscribe(data => {
-      alert('Update success!');
+      this.userComponent.onShowSnackBar({message: 'Profile was updated!!!', isSuccess: true}, 5000);
     });
   }
 }

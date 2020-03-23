@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AuthComponent } from '../auth/auth.component';
 import { AuthService } from '../auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { HeaderService } from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   username: string;
 
-  constructor(public dialog: MatDialog, private authService: AuthService) {
+  constructor(private authService: AuthService, private headerService: HeaderService) {
   }
 
   ngOnInit(): void {
@@ -27,17 +26,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+
   onLogout() {
     this.authService.logout();
   }
 
-  openDialogLogin() {
-    const dialogRef = this.dialog.open(AuthComponent, {
-      width: '300px',
-    });
-    dialogRef.updatePosition({
-      top: '20vh',
-    });
+  onOpenSideBar() {
+    this.headerService.onOpenSideBar();
   }
 
   ngOnDestroy(): void {

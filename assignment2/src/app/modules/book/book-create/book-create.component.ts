@@ -4,6 +4,8 @@ import { BookCreateService } from './book-create.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BookService } from '../book.service';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BookComponent } from '../book.component';
 
 @Component({
   selector: 'app-book-create',
@@ -12,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class BookCreateComponent implements OnInit {
   bookForm: FormGroup;
+  idBook: string;
   isAllowEdit = false;
   defaultDataFieldsForm = {
     title: '',
@@ -20,13 +23,15 @@ export class BookCreateComponent implements OnInit {
     author: '',
   };
 
-  constructor(private bookCreateService: BookCreateService, private routeActive: ActivatedRoute, private bookService: BookService) {
+  constructor(private bookCreateService: BookCreateService, private routeActive: ActivatedRoute,
+              private bookService: BookService) {
   }
 
   ngOnInit(): void {
     this.routeActive.params.subscribe((params: Params) => {
       // check params.id must be number and not null
       this.isAllowEdit = (!isNaN(Number(params.id)) && +params.id != null);
+      this.idBook = params.id;
       // go to edit book
       if (this.isAllowEdit) {
         const bookObservable: Observable<any> = this.onGetBookByID(params.id);
@@ -38,9 +43,8 @@ export class BookCreateComponent implements OnInit {
           this.initFormBook();
         });
       }
-      this.initFormBook();
       // go to create new book
-
+      this.initFormBook();
     });
   }
 
@@ -58,9 +62,18 @@ export class BookCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.bookCreateService.onCreateNewBook(this.bookForm.value).subscribe(data => {
-      console.log(data);
-    });
+    if (this.bookForm.invalid) {
+      return;
+    }
+    if (this.isAllowEdit) {
+      this.bookCreateService.onEditBookById(this.idBook, this.bookForm.value).subscribe(data => {
+        this.bookService.onShowSnackBar({message: 'Book with id ' + this.idBook + ' was updated!!!', isSuccess: true}, 5000);
+      });
+    } else {
+      this.bookCreateService.onCreateNewBook(this.bookForm.value).subscribe(data => {
+        this.bookService.onShowSnackBar({message: 'Book was created!!!', isSuccess: true}, 5000);
+      });
+    }
   }
 
   onClear() {

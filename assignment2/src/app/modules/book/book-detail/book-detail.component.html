@@ -1,6 +1,6 @@
-<div class="content" *ngIf="currentBook">
+<div class="content book--detail" *ngIf="currentBook">
   <h1 class=" text--center book__title">{{'Book Detail'|uppercase}}</h1>
-  <button mat-raised-button color="primary">Edit</button>
+  <button mat-raised-button color="primary" [routerLink]="['/book/edit/',idBook]">Edit</button>
   <button mat-raised-button color="warn" style="margin-left:10px" (click)="onDeleteBook()">Delete</button>
   <mat-tab-group animationDuration="350ms">
     <mat-tab>
@@ -25,6 +25,7 @@
       <h2>Content:</h2>{{currentBook.content}} <br>
       <h2>Description:</h2>{{currentBook.description}} <br>
       <h2>Update at:</h2>{{currentBook.updatedAt|date:'short'}} <br>
+      <h2>Created By:</h2>{{currentBook.userDTO.email}} <br>
     </mat-tab>
   </mat-tab-group>
 

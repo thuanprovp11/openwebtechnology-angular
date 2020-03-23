@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SnackBarComponent } from '../../shared/snack-bar/snack-bar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
   }
 
+  onShowSnackBar(dataShow, timeDuration) {
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      duration: timeDuration,
+      data: dataShow
+    });
+  }
 }

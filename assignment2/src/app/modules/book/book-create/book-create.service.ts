@@ -15,4 +15,8 @@ export class BookCreateService {
     console.log(data);
     return this.http.post('https://books-234.herokuapp.com/api/books', data);
   }
+
+  onEditBookById(id, data) {
+    return this.http.put('https://books-234.herokuapp.com/api/books/' + id, data);
+  }
 }

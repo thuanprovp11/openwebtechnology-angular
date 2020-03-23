@@ -26,9 +26,10 @@
         <mat-icon matSuffix>recent_actors</mat-icon>
       </mat-form-field>
       <br>
-      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="bookForm.invalid">Create</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()"
+              [disabled]="bookForm.invalid">{{isAllowEdit ? 'Save' : 'Create'}}</button>
       <button mat-raised-button color="accent" style="margin-left:10px" (click)="onClear()">Clear</button>
-      <button mat-raised-button style="margin-left:10px">Cancel</button>
+      <button mat-raised-button style="margin-left:10px" routerLink="/book/book-list">Cancel</button>
     </form>
   </div>
 </div>
