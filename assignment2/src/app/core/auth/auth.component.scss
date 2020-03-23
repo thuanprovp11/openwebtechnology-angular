@@ -1,3 +1,21 @@
+.login--form {
+  width: 350px;
+  margin: 50px auto 0;
+  padding: 70px 30px;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+}
+
+.btn {
+  &--hoverUnderline:hover {
+    text-decoration: underline;
+  }
+}
+
+mat-label {
+  font-size: 16px;
+}
+
 .input--full-width {
   width: 100%;
 }
@@ -13,3 +31,4 @@ mat-icon {
 .fix-center-icon {
   margin-left: -73px;
 }
+

@@ -7,15 +7,18 @@ import { BookDetailComponent } from './modules/book/book-detail/book-detail.comp
 import { UserProfileComponent } from './modules/user/user-profile/user-profile.component';
 import { UserComponent } from './modules/user/user.component';
 import { BookCreateComponent } from './modules/book/book-create/book-create.component';
+import { AuthComponent } from './core/auth/auth.component';
 
 
 const appRouter: Routes = [
   {path: '', redirectTo: 'book/book-list', pathMatch: 'full'},
+  {path: 'auth', component: AuthComponent},
   {
     path: 'book', component: BookComponent, children: [
       {path: 'book-list', component: BookListComponent},
       {path: 'book-detail/:id', component: BookDetailComponent},
-      {path: 'new', component: BookCreateComponent}
+      {path: 'new', component: BookCreateComponent},
+      {path: 'edit/:id', component: BookCreateComponent}
     ]
   },
   {

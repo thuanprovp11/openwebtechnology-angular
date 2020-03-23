@@ -1,19 +1,34 @@
 <!--$event.preventDefault() for denied submit form when click button-->
-<form (click)="$event.preventDefault()" [formGroup]="loginForm">
-  <div class="text--center ">
-    <mat-icon class="fix-center-icon">account_circle</mat-icon>
-  </div>
-  <mat-form-field class="input--full-width">
-    <mat-label>Email:</mat-label>
-    <input matInput placeholder="Enter your username" formControlName="email">
-  </mat-form-field>
-  <mat-form-field class="input--full-width">
-    <mat-label>Password:</mat-label>
-    <input matInput placeholder="Enter your password" type="password" formControlName="password">
-  </mat-form-field>
-  <br>
-  <button mat-raised-button color="primary" (click)="onSubmit()"
-          [disabled]="loginForm.invalid || isLoading">Login
-  </button>
-  <button mat-raised-button matDialogClose class="ml-10">Cancel</button>
-</form>
+<div class="login--form">
+  <h1 class=" text--center book__title">{{(isLogin ? 'Login' : 'Sign up')|uppercase}}</h1>
+  <form (click)="$event.preventDefault()" [formGroup]="loginForm">
+    <div class="text--center ">
+      <mat-icon class="fix-center-icon">account_circle</mat-icon>
+    </div>
+    <mat-form-field class="input--full-width">
+      <mat-label>Email:</mat-label>
+      <input matInput placeholder="Enter your username" formControlName="email">
+    </mat-form-field>
+    <mat-form-field class="input--full-width">
+      <mat-label>Password:</mat-label>
+      <input matInput placeholder="Enter your password" type="password" formControlName="password">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="input--full-width" *ngIf="!isLogin">
+      <mat-label>Full name:</mat-label>
+      <input matInput placeholder="Enter your full name" type="text" formControlName="fullName">
+    </mat-form-field>
+    <mat-form-field class="input--full-width" *ngIf="!isLogin">
+      <mat-label>Enter your birthday</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthday" min="1/1/1900" max="Date.now()">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="onSubmit()"
+            [disabled]="loginForm.invalid || isLoading">{{isLogin ? 'Login' : 'Sign up'}}
+    </button>
+    <button mat-button class="ml-10 btn--hoverUnderline"
+            (click)="onSwitchButton()">{{isLogin ? 'Not have account yet?' : 'Have an account?'}}</button>
+  </form>
+</div>

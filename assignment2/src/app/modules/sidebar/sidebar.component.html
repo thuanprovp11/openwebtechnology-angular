@@ -1,17 +1,13 @@
-<aside class="sidebar sidebar__background">
-  <mat-expansion-panel [expanded]="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Category
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
+<mat-sidenav-container class="example-sidenav-container"
+                       [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+               [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
     <mat-nav-list>
-      <mat-divider></mat-divider>
-      <mat-list-item> Kiem Hiep</mat-list-item>
-      <mat-list-item> Ngon Tinh</mat-list-item>
-      <mat-list-item> Tieu Thuyet</mat-list-item>
+      <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
     </mat-nav-list>
+  </mat-sidenav>
 
-  </mat-expansion-panel>
-</aside>
+  <mat-sidenav-content>
+    <p *ngFor="let content of fillerContent">{{content}}</p>
+  </mat-sidenav-content>
+</mat-sidenav-container>

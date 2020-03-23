@@ -2,6 +2,10 @@
   visibility: hidden;
 }
 
-.width-25 mat-form-field{
-  width: 25vw;
+.book--create {
+  width: 60vw;
+}
+
+mat-form-field {
+  width: 100%;
 }

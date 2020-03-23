@@ -10,6 +10,13 @@ export interface LoginData {
   password: string;
 }
 
+export interface SignUpData {
+  email: string;
+  password: string;
+  fullName: string;
+  birthday: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +30,10 @@ export class AuthService {
   login(data: LoginData) {
     return this.http.post<UserModel>('https://books-234.herokuapp.com/api/auth/login', data)
       .pipe(catchError(this.handleError), tap(this.storeUserLogin.bind(this)));
+  }
+
+  signup(data: SignUpData) {
+    return this.http.post('https://books-234.herokuapp.com/api/auth/sign_up', data).pipe(catchError(this.handleError));
   }
 
   autoLogin() {

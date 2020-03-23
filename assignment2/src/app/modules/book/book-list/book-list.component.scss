@@ -10,8 +10,13 @@ th, td {
   text-overflow: ellipsis;
 }
 
+.mat-row:hover {
+  background: whitesmoke;
+}
+
 .mat-column {
   &-id {
+    flex: 0 0 10%;
     width: 10%;
   }
 
@@ -30,9 +35,13 @@ th, td {
     width: 30%;
   }
 
-  &-createdBy {
+  &-enabled {
     flex: 0 0 8%;
-    width: 8%;
+    min-width: 8%;
+  }
+
+  &-action {
+    min-width: 100px;
   }
 }
 

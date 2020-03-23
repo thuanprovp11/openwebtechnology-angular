@@ -16,7 +16,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BookListComponent } from './modules/book/book-list/book-list.component';
 import { BookDetailComponent } from './modules/book/book-detail/book-detail.component';
 import { BookCreateComponent } from './modules/book/book-create/book-create.component';
-import { BookEditComponent } from './modules/book/book-edit/book-edit.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BookComponent } from './modules/book/book.component';
 import { MatCardModule } from '@angular/material/card';
@@ -36,6 +35,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { AuthInterceptorService } from './core/auth/auth-interceptor.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -47,7 +48,6 @@ import { MatSortModule } from '@angular/material/sort';
     BookListComponent,
     BookDetailComponent,
     BookCreateComponent,
-    BookEditComponent,
     BookComponent,
     AuthComponent,
     UserComponent,
@@ -76,6 +76,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatTabsModule,
     MatTableModule,
     MatSortModule,
+    MatChipsModule,
+    MatTooltipModule,
     AppRoutingModule
   ],
   providers: [

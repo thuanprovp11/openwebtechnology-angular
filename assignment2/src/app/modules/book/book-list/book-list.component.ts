@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BookModel, BookService } from '../../../shared/book.service';
+import { BookService } from '../book.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { BookListService } from './book-list.service';
 
 @Component({
   selector: 'app-book-list',
@@ -9,21 +10,37 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-  listBooks: BookModel[] = [];
-  displayedColumns: string[] = ['id', 'title', 'author', 'description', 'createdBy', 'status', 'action'];
+  displayedColumns: string[] = ['id', 'title', 'author', 'description', 'userDTO.email', 'enabled', 'action'];
   dataSource;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private bookListService: BookService) {
+  constructor(private bookService: BookService, private bookListService: BookListService) {
   }
 
 
   ngOnInit(): void {
-    this.bookListService.getBookList().subscribe(data => {
-      this.listBooks = data.books;
+    this.bookService.getBookList().subscribe(data => {
       this.dataSource = new MatTableDataSource(data.books);
       this.dataSource.sort = this.sort;
-      console.log(this.listBooks);
+    });
+  }
+
+  onDeleteBookById(id) {
+    this.bookListService.deleteBookById(id).subscribe(data => {
+      this.refreshTable();
+    });
+  }
+
+  refreshTable() {
+    this.bookService.getBookList().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data.books);
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  onEnableBookById(id: string) {
+    this.bookListService.enableBookById(id).subscribe(data => {
+      this.refreshTable();
     });
   }
 

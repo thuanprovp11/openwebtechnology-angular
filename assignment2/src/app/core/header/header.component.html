@@ -1,12 +1,15 @@
 <header class="box-shadow">
   <nav>
     <mat-toolbar>
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <button mat-button routerLink="book/book-list">
         <mat-icon aria-hidden="false" aria-label="Example home icon">library_books</mat-icon>
         Book management
       </button>
       <div class="flex-spacer"></div>
-      <button mat-button (click)="openDialogLogin()" *ngIf="!isAuthentication">
+      <button mat-button *ngIf="!isAuthentication" routerLink="/auth">
         <mat-icon aria-hidden="false" aria-label="Example home icon">account_circle</mat-icon>
         Login
       </button>
