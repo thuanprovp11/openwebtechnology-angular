@@ -11,4 +11,5 @@ export class BookDetailService {
   onDeleteBookById(id) {
     return this.http.delete('https://books-234.herokuapp.com/api/books/' + id);
   }
+
 }

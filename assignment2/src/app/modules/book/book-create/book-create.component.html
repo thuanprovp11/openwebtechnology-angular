@@ -25,6 +25,8 @@
         <input matInput placeholder="Enter your title" formControlName="author">
         <mat-icon matSuffix>recent_actors</mat-icon>
       </mat-form-field>
+      <span *ngIf="!bookForm.valid && bookForm.touched"
+            class="help-block">Please! Full fill information in the red fields!</span>
       <br>
       <button mat-raised-button color="primary" (click)="onSubmit()"
               [disabled]="bookForm.invalid">{{isAllowEdit ? 'Save' : 'Create'}}</button>

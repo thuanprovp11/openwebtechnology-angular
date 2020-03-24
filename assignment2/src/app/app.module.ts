@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
-import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,7 +46,6 @@ import { UserListComponent } from './modules/user/user-list/user-list.component'
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SidebarComponent,
     BookListComponent,
     BookDetailComponent,
     BookCreateComponent,

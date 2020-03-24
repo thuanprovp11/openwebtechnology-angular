@@ -25,6 +25,7 @@ const appRouter: Routes = [
   {
     path: 'user', component: UserComponent, children: [
       {path: 'user-profile', component: UserProfileComponent},
+      {path: 'user-profile/edit/:id', component: UserProfileComponent},
       {path: 'user-list', component: UserListComponent}
     ]
   }

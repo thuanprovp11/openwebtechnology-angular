@@ -30,8 +30,6 @@ export class BookListComponent implements OnInit {
   onDeleteBookById(id) {
     this.bookListService.deleteBookById(id).subscribe(data => {
       this.onShowSnackBar({message: 'Deleted Success!!', isSuccess: true}, 5000);
-      //
-      //   this.bookService.onShowSnackBar({message: 'Deleted Success!!', isSuccess: true}, 5000);
       this.refreshTable();
     });
   }

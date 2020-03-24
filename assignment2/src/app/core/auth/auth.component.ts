@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, LoginData, SignUpData } from './auth.service';
 import { Observable } from 'rxjs';
-import { UserModel } from '../../shared/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,8 +33,6 @@ export class AuthComponent implements OnInit {
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
-    // fullName: new FormControl(null, Validators.required),
-    // birthday: new FormControl(null, Validators.required),
   }
 
   onSubmit() {
@@ -65,7 +62,6 @@ export class AuthComponent implements OnInit {
       console.log(result);
     }, error => {
       this.isLoading = false;
-      alert(error);
     });
   }
 }

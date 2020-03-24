@@ -4,8 +4,6 @@ import { BookCreateService } from './book-create.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BookService } from '../book.service';
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BookComponent } from '../book.component';
 
 @Component({
   selector: 'app-book-create',

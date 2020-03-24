@@ -11,7 +11,8 @@ import { HeaderService } from './core/header/header.service';
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('snav', {static: true}) snav;
 
-  constructor(private authService: AuthService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private headerService: HeaderService) {
+  constructor(private authService: AuthService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+              private headerService: HeaderService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('click', this.mobileQueryListener);
