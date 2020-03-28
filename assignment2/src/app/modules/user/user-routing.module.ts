@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { AuthGuardService } from '../../core/auth/auth.guard.service';
 
 const userRouter: Routes = [{
-  path: '', component: UserComponent, children: [
+  path: '', canActivate: [AuthGuardService], component: UserComponent, children: [
     {path: 'user-profile', component: UserProfileComponent},
     {path: 'user-profile/edit/:id', component: UserProfileComponent},
     {path: 'user-list', component: UserListComponent}]
