@@ -12,7 +12,6 @@ export class BookCreateService {
 
   onCreateNewBook(data) {
     data.enable = true;
-    console.log(data);
     return this.http.post('https://books-234.herokuapp.com/api/books', data);
   }
 

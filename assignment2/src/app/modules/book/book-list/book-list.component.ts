@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BookService } from '../book.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { BookListService } from './book-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarComponent } from '../../../shared/snack-bar/snack-bar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-book-list',
@@ -16,7 +18,8 @@ export class BookListComponent implements OnInit {
   dataSource;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private bookService: BookService, private bookListService: BookListService, private snackBar: MatSnackBar) {
+  constructor(private bookService: BookService, private bookListService: BookListService,
+              private snackBar: MatSnackBar, private dialog: MatDialog) {
   }
 
 
@@ -28,9 +31,19 @@ export class BookListComponent implements OnInit {
   }
 
   onDeleteBookById(id) {
-    this.bookListService.deleteBookById(id).subscribe(data => {
-      this.onShowSnackBar({message: 'Deleted Success!!', isSuccess: true}, 5000);
-      this.refreshTable();
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '350px',
+      data: {
+        question: 'Are you sure want to delete book with id is ' + id + ' ?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.bookListService.deleteBookById(id).subscribe(res => {
+          this.onShowSnackBar({message: 'Deleted Success!!', isSuccess: true}, 5000);
+          this.refreshTable();
+        });
+      }
     });
   }
 

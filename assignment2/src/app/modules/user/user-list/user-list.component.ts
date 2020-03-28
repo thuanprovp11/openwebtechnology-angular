@@ -50,7 +50,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   onDeleteUserById(id) {
-    console.log(id);
     this.userListService.onDeleteUserById(id).subscribe(data => {
       this.onShowSnackBar({message: 'User with id ' + id + ' was deleted!!!', isSuccess: true}, 5000);
       this.onRefreshTable();

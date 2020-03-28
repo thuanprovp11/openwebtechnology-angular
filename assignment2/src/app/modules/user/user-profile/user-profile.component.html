@@ -1,4 +1,4 @@
-<h1 class=" text--center book__title">USER PROFILE</h1>
+<h1 class=" text--center book__title">{{isEditAnotherUser ? 'EDIT USER' : 'USER PROFILE'}}</h1>
 <form (click)="$event.preventDefault()" [formGroup]="profileForm" *ngIf="isLoaded">
   <mat-form-field appearance="legacy">
     <mat-label>Full name:</mat-label>
@@ -12,6 +12,10 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <span *ngIf="!profileForm.get('birthday').valid"
+        class="help-block">Date must be greater than 1900!</span><br>
+  <span *ngIf="!profileForm.valid && profileForm.touched"
+        class="help-block">Please! Full fill information in the red fields!</span><br>
   <button mat-raised-button color="primary" (click)="onUpdateUserProfile()" [disabled]="profileForm.invalid">Update
   </button>
   <button mat-raised-button style="margin-left: 10px" routerLink="/user/user-list">Cancel</button>

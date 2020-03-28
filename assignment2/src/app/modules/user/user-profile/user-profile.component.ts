@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserProfileService } from './user-profile.service';
 import { UserComponent } from '../user.component';
 import { ActivatedRoute, Params } from '@angular/router';
+import { CustomValidator } from '../../../shared/customValidator';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,7 +29,6 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.routeActived.params.subscribe((params: Params) => {
       this.isEditAnotherUser = (!isNaN(Number(params.id)) && +params.id != null);
-      console.log(this.isEditAnotherUser);
       this.idUser = params.id;
       // load user from API
       if (this.isEditAnotherUser) {
@@ -41,6 +41,7 @@ export class UserProfileComponent implements OnInit {
       } else {
         // load current User from localstorage and save id
         this.currentUser = this.authService.loadedUserLogin();
+        this.idUser = this.currentUser.id;
         this.userProfileService.onGetUserLoginInfoById(this.currentUser.id).subscribe(data => {
           this.defaultFieldForm = data;
           this.initForm();
@@ -53,7 +54,7 @@ export class UserProfileComponent implements OnInit {
   private initForm() {
     this.profileForm = new FormGroup({
       fullName: new FormControl(this.defaultFieldForm.fullName, Validators.required),
-      birthday: new FormControl(new Date(this.defaultFieldForm.birthday), [Validators.required])
+      birthday: new FormControl(new Date(this.defaultFieldForm.birthday), [Validators.required, CustomValidator.onValidatorDateTime])
     });
   }
 

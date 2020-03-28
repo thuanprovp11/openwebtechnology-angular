@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, LoginData, SignUpData } from './auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarComponent } from '../../shared/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +16,7 @@ export class AuthComponent implements OnInit {
   loginForm: FormGroup;
   isLogin = true;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   onSwitchButton() {
@@ -59,9 +61,9 @@ export class AuthComponent implements OnInit {
     authObservable.subscribe(result => {
       this.isLoading = false;
       this.router.navigate(['/book/book-list']);
-      console.log(result);
     }, error => {
       this.isLoading = false;
+      this.snackBar.openFromComponent(SnackBarComponent, {duration: 5000, data: {message: error, isSuccess: false}});
     });
   }
 }
