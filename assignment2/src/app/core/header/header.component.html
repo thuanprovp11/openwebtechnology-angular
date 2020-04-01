@@ -1,0 +1,20 @@
+<header class="box-shadow">
+  <nav>
+    <mat-toolbar>
+      <button mat-button>
+        <mat-icon aria-hidden="false" aria-label="Example home icon">library_books</mat-icon>
+        Book management
+      </button>
+      <div class="flex-spacer"></div>
+      <button mat-button (click)="openDialog()" *ngIf="!isAuthentication">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">account_circle</mat-icon>
+        Login
+      </button>
+      <button mat-button (click)="openDialog()" *ngIf="!isAuthentication">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">face</mat-icon>
+        Hello,
+      </button>
+    </mat-toolbar>
+
+  </nav>
+</header>

@@ -1,0 +1,22 @@
+.mat-list-item {
+  font-size: 13px;
+}
+
+.mat-list-base {
+  padding-top: 0
+}
+
+
+.sidebar {
+  margin: 25px;
+
+  &__background {
+    background: rgba(0, 0, 0, .03);
+  }
+
+  &__button {
+    width: 100%;
+    text-align: left;
+    padding-top: 6px;
+  }
+}
